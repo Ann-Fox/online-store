@@ -1,29 +1,33 @@
 {% extends "base.html" %} {%block content%}
 <div class="container">
-  {% for product in products %}
-  <div class="card" style="width: 18rem">
-    {% if product.image %}
-    <img
-      src="{{ product.image.url }}"
-      class="card-img-top"
-      alt="{{ product.name }}"
-      style="height: 200px; object-fit: cover"
-    />
-    {% else %}
-    <div
-      class="card-img-top bg-light d-flex align-items-center justify-content-center"
-      style="height: 200px; color: #6c757d"
-    >
-      Нет фото
+  <div class="row gy-5">
+    {% for product in products %}
+    <div class="col-4">
+      <div class="card" style="width: 18rem">
+        {% if product.image %}
+        <img
+          src="{{ product.image.url }}"
+          class="card-img-top"
+          alt="{{ product.name }}"
+          style="height: 200px; object-fit: cover"
+        />
+        {% else %}
+        <div
+          class="card-img-top bg-light d-flex align-items-center justify-content-center"
+          style="height: 200px; color: #6c757d"
+        >
+          Нет фото
+        </div>
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">{{product.description}}</p>
+          <p class="card-text"><strong>{{ product.price }} ₽</strong></p>
+          <a href="#" class="btn btn-success">К товару</a>
+        </div>
+      </div>
     </div>
-    {% endif %}
-    <div class="card-body">
-      <h5 class="card-title">{{product.name}}</h5>
-      <p class="card-text">{{product.description}}</p>
-      <p class="card-text"><strong>{{ product.price }} ₽</strong></p>
-      <a href="#" class="btn btn-success">К товару</a>
-    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
 </div>
 {% endblock %}
