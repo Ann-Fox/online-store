@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
-# from django.urls import reverse
-# from django.utils.text import slugify
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -120,10 +119,10 @@ class Product(models.Model):
     #     return reverse('catalog:product_detail', kwargs={'slug': self.slug})
 
 # переопределён для автоматической генерации слага
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:
-    #         self.slug = slugify(self.name)
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 # возвращает цену со скидкой, если есть
     # @property
