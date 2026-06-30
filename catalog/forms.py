@@ -1,5 +1,6 @@
 from django import forms
-from .models import Product
+from django.forms import inlineformset_factory
+from .models import Product, ProductImage
 
 
 class ProductForm(forms.ModelForm):
@@ -15,3 +16,12 @@ class ProductForm(forms.ModelForm):
             "quantity",
             "image",
         )
+
+
+ProductImageFormSet = inlineformset_factory(
+    Product,
+    ProductImage,
+    fields=("image", "position", "is_active"),
+    extra=4,  # количество пустых форм для добавления
+    can_delete=True,  # позволит удалять изображения
+)

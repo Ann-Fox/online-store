@@ -1,7 +1,46 @@
 {% extends "base.html" %} {% block content %}
 <div class="container">
   <form method="post" enctype="multipart/form-data">
-    {% csrf_token %} {{form}}
+    {% csrf_token %}
+    <div class="mb-4 border p-3">
+      <!-- <p><strong>field:</strong>{{field}}</p>
+      <p><strong>field.name:</strong>{{field.name}}</p>
+      <p><strong>field.slug:</strong>{{field.slug}}</p>
+      <p><strong>field.description:</strong>{{field.description}}</p>
+      <p><strong>field.category:</strong>{{field.category}}</p>
+      <p><strong>field.price:</strong>{{field.price}}</p>
+      <p><strong>field.is_active:</strong>{{field.is_active}}</p>
+      <p><strong>field.quantity:</strong>{{field.quantity}}</p>
+      <p><strong>field.image:</strong>{{field.image}}</p> -->
+      {% for error in form.non_field_errors %}
+      <div class="alert alert-danger">{{error}}</div>
+      {% endfor %} {% for field in form %}
+      <div class="mb-3">
+        {% if field.field.widget.input_type == "checkbox" %}
+        <div class="form-check">
+          {{ field }}
+          <label class="form-check-label" for="{{ field.id_for_label}}">
+            {{ field.label }}
+          </label>
+        </div>
+        {% else %}
+        <label class="form-label" for="{{ field.id_for_label}}">
+          {{ field.label }}
+        </label>
+        {{ field }} {% endif %} {% if field.help_text %}
+        <div class="form-text">{{ field.help_text }}</div>
+        {% endif %} {% for error in field.errors %}
+        <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <h3>Изображения товара</h3>
+    {{ formset.management_form }} {% for image_form in formset %}
+    <div class="border p-2 mb-2">{{ image_form }}</div>
+    {% endfor %}
+
     <button class="btn btn-success">Создать продукт</button>
   </form>
 </div>
