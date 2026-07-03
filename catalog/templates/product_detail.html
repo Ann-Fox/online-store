@@ -1,0 +1,89 @@
+{% extends "base.html" %} 
+{% block title %}{{ product.name }}{% endblock %} 
+{%block content %}
+    <div class="container py-4">
+        <!-- Хлебные крошки -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Каталог</a></li>
+            {% if product.category %}
+            <li class="breadcrumb-item">
+                  <a href="{% url 'home' %}?category={{ product.category.slug }}">
+        {{ product.category.name }}
+    </a>
+            </li>
+            {% endif %}
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ product.name }}
+            </li>
+            </ol>
+        </nav>
+
+        <div class="row g-5">
+            <!-- Левая колонка: изображение -->
+            <div class="col-md-6">
+            <div class="position-relative">
+                {% if product.image %}
+                <img
+                src="{{ product.image.url }}"
+                class="img-fluid rounded shadow"
+                alt="{{ product.name }}"
+                />
+                {% else %}
+                <div
+                class="bg-light text-center p-5 rounded shadow"
+                style="
+                    height: 400px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                "
+                >
+                <span class="text-muted">Нет изображения</span>
+                </div>
+                {% endif %}
+                <!-- Бейдж с категорией (поверх изображения) -->
+                <span class="badge bg-success position-absolute top-0 start-0 m-3">
+                {{ product.get_category_display|default:product.category.name }}
+                </span>
+            </div>
+            </div>
+
+            <!-- Правая колонка: информация о товаре -->
+            <div class="col-md-6">
+            <h1 class="display-5 fw-bold">{{ product.name }}</h1>
+            <p class="text-muted mb-3">{{ product.description|linebreaks }}</p>
+
+            <!-- Выбор высоты (как пример характеристик) -->
+            <div class="mb-4">
+                <h6 class="fw-bold text-uppercase">Высота, см</h6>
+                <div class="btn-group" role="group" aria-label="Выбор высоты">
+                <input type="radio" class="btn-check" name="height" id="h1" checked />
+                <label class="btn btn-outline-secondary" for="h1">23–25</label>
+                <input type="radio" class="btn-check" name="height" id="h2" />
+                <label class="btn btn-outline-secondary" for="h2">30–35</label>
+                <input type="radio" class="btn-check" name="height" id="h3" />
+                <label class="btn btn-outline-secondary" for="h3">35+</label>
+                </div>
+            </div>
+
+            <!-- Цена и кнопка -->
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <span class="display-6 fw-bold text-success"
+                >{{ product.price }} ₽</span
+                >
+                <a href="#" class="btn btn-success btn-lg px-5">Добавить в корзину</a>
+            </div>
+
+            <!-- Дополнительные характеристики (если есть) -->
+            {% if product.quantity is not None %}
+            <p class="text-muted">
+                <i class="bi bi-box"></i> Доступно: {{ product.quantity }} шт.
+            </p>
+            {% endif %}
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}

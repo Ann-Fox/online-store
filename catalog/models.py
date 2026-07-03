@@ -116,8 +116,8 @@ class Product(models.Model):
         return self.name
 
     # ссылка на страницу товара
-    # def get_absolute_url(self):
-    #     return reverse('catalog:product_detail', kwargs={'slug': self.slug})
+    def get_absolute_url(self):
+        return reverse('product-detail', kwargs={'slug': self.slug})
 
     # переопределён для автоматической генерации слага
     def save(self, *args, **kwargs):

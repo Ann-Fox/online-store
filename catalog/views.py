@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from catalog.forms import ProductForm, ProductImageFormSet
 from catalog.models import Category, Product
 from shop.forms_utils import apply_bootstrap_classes
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView
 
 
 def catalog_list_view(request):
@@ -35,6 +35,15 @@ class CatalogListView(ListView):
         return context
 
 
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'product_detail.html'
+    context_object_name = 'product'
+    slug_url_kwarg = 'slug'
+
+    def get_queryset(self):
+        return Product.objects.filter(is_active=True)
+    
 
 
 
