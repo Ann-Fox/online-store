@@ -1,9 +1,16 @@
 from django import forms
 from django.forms import inlineformset_factory
 from .models import Product, ProductImage
+from shop.forms_utils import apply_bootstrap_classes
 
 
-class ProductForm(forms.ModelForm):
+class BootstrapModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        apply_bootstrap_classes(self)
+
+class ProductForm(BootstrapModelForm):
     class Meta:
         model = Product
         fields = (
@@ -16,6 +23,7 @@ class ProductForm(forms.ModelForm):
             "quantity",
             "image",
         )
+
 
 
 ProductImageFormSet = inlineformset_factory(
