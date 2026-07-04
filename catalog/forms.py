@@ -3,7 +3,6 @@ from django.forms import inlineformset_factory
 from .models import Product, ProductImage
 from shop.forms_utils import apply_bootstrap_classes
 
-
 class BootstrapModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

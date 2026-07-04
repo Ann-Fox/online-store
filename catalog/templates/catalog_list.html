@@ -1,27 +1,43 @@
 {% extends "base.html" %} {%block content%}
 <div class="container">
-   <!-- Фильтр по категориям -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <form method="get" class="row g-3">
-                <div class="col-auto">
-                    <label for="categoryFilter" class="visually-hidden">Категория</label>
-                    <select name="category" id="categoryFilter" class="form-select" onchange="this.form.submit()">
-                        <option value="">Все категории</option>
-                        {% for category in categories %}
-                            <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
-                                {{ category.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary">Применить</button>
-                    <a href="{% url 'home' %}" class="btn btn-secondary">Сбросить</a>
-                </div>
-            </form>
+  <!-- Фильтр по категориям -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <form method="get" class="row g-3">
+        <div class="col-auto">
+          <label for="categoryFilter" class="visually-hidden">Категория</label>
+          <select
+            name="category"
+            id="categoryFilter"
+            class="form-select"
+            onchange="this.form.submit()"
+          >
+            <option value="">Все категории</option>
+            {% for category in categories %}
+            <option
+              value="{{ category.slug }}"
+              {%
+              if
+              selected_category=""
+              ="category.slug"
+              %}selected{%
+              endif
+              %}
+            >
+              {{ category.name }}
+            </option>
+            {% endfor %}
+          </select>
         </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-outline-success">
+            Применить
+          </button>
+          <a href="{% url 'home' %}" class="btn btn-secondary">Сбросить</a>
+        </div>
+      </form>
     </div>
+  </div>
   <div class="row gy-5">
     {% for product in products %}
     <div class="col-4">
@@ -45,7 +61,11 @@
           <h5 class="card-title">{{product.name}}</h5>
           <p class="card-text">{{product.description}}</p>
           <p class="card-text"><strong>{{ product.price }} ₽</strong></p>
-          <a href="{% url 'product-detail' product.slug %}" class="btn btn-success">К товару</a>
+          <a
+            href="{% url 'product-detail' product.slug %}"
+            class="btn btn-success"
+            >К товару</a
+          >
         </div>
       </div>
     </div>
