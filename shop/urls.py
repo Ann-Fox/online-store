@@ -20,12 +20,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from catalog.views import ProductViewSet
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register("product", ProductViewSet)
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     # path('/', include('users.urls')),
+    path("api/", include(router.urls)),
     path("", include("catalog.urls")),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

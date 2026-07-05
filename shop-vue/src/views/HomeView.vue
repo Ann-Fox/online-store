@@ -1,12 +1,15 @@
 <script setup>
 import {onMounted, ref} from 'vue'
-import axios from 'axios'
-
+// import axios from 'axios'
+import { Product } from '@/api'
 const productList = ref([])
+const search = ref('')
 
 const getProductList = async()=>{
-  let res = await axios.get('/products/product-json/')
-  productList.value = res.data
+  // let res = await axios.get('/api/product/?search=' + search.value)
+  let res = await Product.getList({search: search.value})
+  console.log(res)
+  productList.value = res.results
 }
 
 onMounted(()=>{
@@ -16,6 +19,7 @@ onMounted(()=>{
 
 <template>
   <div class="container">
+    <input v-model="search" @input="getProductList">
     <!-- Фильтр по категориям -->
     <div class="row mb-4">
       <div class="col-md-12">
@@ -41,8 +45,8 @@ onMounted(()=>{
       <div class="col-4" v-for="product in productList">
         <div class="card" style="width: 18rem">
            <img
-           v-if="product.image_url"
-          :src="product.image_url"
+           v-if="product.image"
+          :src="product.image"
           class="card-img-top"
           :alt="product.name"
           style="height: 200px; object-fit: cover"

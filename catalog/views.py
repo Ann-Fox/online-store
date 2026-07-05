@@ -5,6 +5,35 @@ from catalog.models import Category, Product
 from shop.forms_utils import apply_bootstrap_classes
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from django.http import JsonResponse
+from rest_framework.viewsets import ModelViewSet
+
+from django_filters import rest_framework as filters
+from django_filters.rest_framework import DjangoFilterBackend
+
+from django.db.models import Q
+from .serializers import ProductSerializer
+
+
+class ProductFilter(filters.FilterSet):
+    search = filters.CharFilter(method="get_search2")
+
+    def get_search2(self, queryset, name, value):
+        if value:
+            queryset = queryset.filter(
+                Q(name__icontains=value) | Q(description__icontains=value)
+            )
+        return queryset
+
+    class Meta:
+        model = Product
+        exclude = ["image"]
+
+
+class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductFilter
 
 
 class ProductListFetchView(TemplateView):
