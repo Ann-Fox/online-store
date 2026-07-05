@@ -83,7 +83,7 @@ async function _getRaw(url) {
     return response.data;
 }
 export let Product = apiConstructor("/api/product/")
-// export let LessonTypes = apiConstructor("/api/lesson/types/")
+export let ProductCategory = apiConstructor("/api/product/category/")
 export let ProductImage = apiConstructor("/api/product_image/")
 // export let LessonTestPublic = apiConstructor("/api/lesson_test_public/")
 // export let LessonVideo = apiConstructor("/api/lesson_video/")

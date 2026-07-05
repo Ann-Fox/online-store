@@ -7,6 +7,9 @@ from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from django.http import JsonResponse
 from rest_framework.viewsets import ModelViewSet
 
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 from django_filters import rest_framework as filters
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -16,6 +19,8 @@ from .serializers import ProductImageSerializer, ProductSerializer
 
 class ProductFilter(filters.FilterSet):
     search = filters.CharFilter(method="get_search2")
+    category = filters.CharFilter(field_name='category__slug', lookup_expr='exact')
+
 
     def get_search2(self, queryset, name, value):
         if value:
@@ -35,7 +40,11 @@ class ProductViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductFilter
 
-
+    @action(detail=False, methods=["get"])
+    def category(self, request):
+        categories = Category.objects.filter(is_active=True)  # или .all()
+        data = [{"value": cat.slug, "label": cat.name} for cat in categories]
+        return Response(data)
 
 
 class ProductImageFilter(filters.FilterSet):
@@ -49,10 +58,6 @@ class ProductImageViewSet(ModelViewSet):
     serializer_class = ProductImageSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductImageFilter
-
-
-
-
 
 
 class ProductListFetchView(TemplateView):
