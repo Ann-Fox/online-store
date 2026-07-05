@@ -1,8 +1,11 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 // import axios from 'axios'
-import { Product } from '@/api'
+import { Product, ProductImage } from '@/api'
+
+
 const productList = ref([])
+const product_image = ref([])
 const search = ref('')
 
 const getProductList = async()=>{
@@ -10,6 +13,9 @@ const getProductList = async()=>{
   let res = await Product.getList({search: search.value})
   console.log(res)
   productList.value = res.results
+  let res_product_image = await ProductImage.getList()
+  console.log(res_product_image);
+  product_image.value = res_product_image.results
 }
 
 onMounted(()=>{
@@ -19,6 +25,7 @@ onMounted(()=>{
 
 <template>
   <div class="container">
+   {{ product_image }}
     <input v-model="search" @input="getProductList">
     <!-- Фильтр по категориям -->
     <div class="row mb-4">

@@ -20,11 +20,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from catalog.views import ProductViewSet
+from catalog.views import ProductViewSet, ProductImageViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register("product", ProductViewSet)
+router.register("product_image", ProductImageViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

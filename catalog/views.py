@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from catalog.forms import ProductForm, ProductImageFormSet
-from catalog.models import Category, Product
+from catalog.models import Category, Product, ProductImage
 from shop.forms_utils import apply_bootstrap_classes
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from django.http import JsonResponse
@@ -11,7 +11,7 @@ from django_filters import rest_framework as filters
 from django_filters.rest_framework import DjangoFilterBackend
 
 from django.db.models import Q
-from .serializers import ProductSerializer
+from .serializers import ProductImageSerializer, ProductSerializer
 
 
 class ProductFilter(filters.FilterSet):
@@ -34,6 +34,25 @@ class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductFilter
+
+
+
+
+class ProductImageFilter(filters.FilterSet):
+    class Meta:
+        model = ProductImage
+        exclude = ["image"]
+
+
+class ProductImageViewSet(ModelViewSet):
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductImageFilter
+
+
+
+
 
 
 class ProductListFetchView(TemplateView):
