@@ -31,7 +31,6 @@ const getProductList = async () => {
   console.log(res)
   productList.value = res.results || res // если без пагинации, то просто массив
 
-
   // let res_product_image = await ProductImage.getList()
   // console.log(res_product_image);
   // product_image.value = res_product_image.results

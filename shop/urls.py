@@ -29,6 +29,8 @@ router.register("product_image", ProductImageViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("api/users/", include("users.urls")),
     # path('/', include('users.urls')),
     path("api/", include(router.urls)),
     path("", include("catalog.urls")),
