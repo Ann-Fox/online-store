@@ -33,7 +33,7 @@ export default defineConfig({
       '^/admin': proxyOptions,
       '^/media': proxyOptions,
       '^/static': proxyOptions,
-      // '^/accounts': proxyOptions,
+      '^/accounts': proxyOptions,
 
     },
   },
