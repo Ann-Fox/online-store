@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 from catalog.views import ProductViewSet, ProductImageViewSet
 from rest_framework.routers import DefaultRouter
 
+
 router = DefaultRouter()
 router.register("product", ProductViewSet)
 router.register("product_image", ProductImageViewSet)
@@ -34,6 +35,7 @@ urlpatterns = [
     # path('/', include('users.urls')),
     path("api/", include(router.urls)),
     path("", include("catalog.urls")),
+    path("api/", include("core.urls")),
 ]
 
 if settings.DEBUG:

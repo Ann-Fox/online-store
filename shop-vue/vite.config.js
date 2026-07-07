@@ -34,6 +34,7 @@ export default defineConfig({
       '^/media': proxyOptions,
       '^/static': proxyOptions,
       '^/accounts': proxyOptions,
+      '^/core': proxyOptions,
 
     },
   },

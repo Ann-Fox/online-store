@@ -1,4 +1,4 @@
-@import './base.css';
+/* @import './base.css';
 
 #app {
   max-width: 1280px;
@@ -32,4 +32,38 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
+} */
+:root {
+  --btn-primary-bg: #0d6efd;
+  --btn-primary-border: #0d6efd;
+}
+
+/* Переопределяем Bootstrap-классы через CSS-переменные */
+.btn-success {
+  background-color: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-border) !important;
+}
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active {
+  background-color: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-border) !important;
+  filter: brightness(0.9);
+}
+
+.btn-outline-primary {
+  color: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-border) !important;
+}
+.btn-outline-primary:hover {
+  background-color: var(--btn-primary-bg) !important;
+  color: #fff !important;
+}
+
+/* Дополнительно: для бейджей, ссылок, если нужно */
+.badge.bg-primary {
+  background-color: var(--btn-primary-bg) !important;
+}
+a.text-primary {
+  color: var(--btn-primary-bg) !important;
 }
