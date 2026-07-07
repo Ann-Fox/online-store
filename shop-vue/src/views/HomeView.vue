@@ -59,7 +59,7 @@ onMounted(() => {
       <div class="col-md-12">
         <div class="row g-3 align-items-center"></div>
         <!-- <form method="get" @submit.prevent="getProductList" class="row g-3"> -->
-        <div class="col-auto">
+        <div class="col-auto mt-3">
           <label for="categoryFilter" class="visually-hidden">Категория</label>
           <select v-model="productCategory" name="category" id="categoryFilter" class="form-select"
             @onchange="getProductList">
@@ -69,7 +69,7 @@ onMounted(() => {
             </option>
           </select>
         </div>
-        <div class="col-auto">
+        <div class="col-auto mt-2 d-flex gap-3">
           <button @click.prevent="getProductList" class="btn btn-outline-success">
             Применить
           </button>
@@ -78,9 +78,10 @@ onMounted(() => {
         <!-- </form> -->
       </div>
     </div>
-  </div>
 
-  <div class="row gy-5">
+
+
+     <div class="row gy-5">
     <template v-if="productList.length > 0">
       <div class="col-4" v-for="product in productList">
         <div class="card" style="width: 18rem">
@@ -101,11 +102,15 @@ onMounted(() => {
 
             <p class="card-text">{{ product.description }}</p>
             <p class="card-text"><strong>{{ product.price }} ₽</strong></p>
-            <a href="" class="btn btn-success">К товару</a>
+            <!-- <a href="" class="btn btn-success">К товару</a> -->
+            <RouterLink class="btn btn-success" :to="{name: 'product-detail', params: {id: product.id}}">К товару</RouterLink>
           </div>
         </div>
       </div>
     </template>
   </div>
+  </div>
+
+ 
 
 </template>

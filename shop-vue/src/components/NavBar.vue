@@ -61,6 +61,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <div class="container">
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Online Store</a>
@@ -109,4 +110,5 @@ onMounted(() => {
       </div>
     </div>
   </nav>
+  </div>
 </template>

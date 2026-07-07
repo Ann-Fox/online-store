@@ -29,7 +29,7 @@ export default defineConfig({
     host: '127.0.0.1',
     proxy: {
       '^/api': proxyOptions,
-      '^/products': proxyOptions,
+      // '^/products': proxyOptions,
       '^/admin': proxyOptions,
       '^/media': proxyOptions,
       '^/static': proxyOptions,
